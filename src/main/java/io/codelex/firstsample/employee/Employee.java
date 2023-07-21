@@ -1,9 +1,20 @@
 package io.codelex.firstsample.employee;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+@Entity
 public class Employee {
 
-    private String name;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private String name;
+
+    public Employee() {
+    }
 
     public Employee(Integer id, String name) {
         this.name = name;

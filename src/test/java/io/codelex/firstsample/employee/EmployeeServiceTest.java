@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class EmployeeServiceTest {
 
     @Mock
-    EmployeeRepository employeeRepository;
+    EmployeeInMemoryRepository employeeInMemoryRepository;
 
     @InjectMocks
     EmployeeInMemoryService employeeService;
@@ -33,7 +33,7 @@ class EmployeeServiceTest {
     @Test
     void findEmployeeById() {
         Integer testEmpId = 10;
-        Mockito.when(employeeRepository.getAllEmployees()).thenReturn(testEmployeeList);
+        Mockito.when(employeeInMemoryRepository.getAllEmployees()).thenReturn(testEmployeeList);
         Employee returnedEmployee = employeeService.findEmployeeById(testEmpId);
         Assertions.assertEquals("Mark", returnedEmployee.getName());
         Assertions.assertEquals(10, returnedEmployee.getId());
@@ -42,7 +42,7 @@ class EmployeeServiceTest {
     @Test
     void findEmployeeByIdTestException() {
         Integer testEmpId = 22;
-        Mockito.when(employeeRepository.getAllEmployees()).thenReturn(testEmployeeList);
+        Mockito.when(employeeInMemoryRepository.getAllEmployees()).thenReturn(testEmployeeList);
         ResponseStatusException exception = assertThrows(ResponseStatusException.class, () -> {
             employeeService.findEmployeeById(testEmpId);
         });

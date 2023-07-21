@@ -1,16 +1,14 @@
 package io.codelex.firstsample;
 
 import io.codelex.firstsample.employee.EmployeeController;
-import io.codelex.firstsample.employee.EmployeeRepository;
+import io.codelex.firstsample.employee.EmployeeInMemoryRepository;
 import io.codelex.firstsample.weather.WeatherController;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.util.Assert;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -19,7 +17,7 @@ class FirstSampleApplicationTests {
     @Autowired
     EmployeeController employeeController;
     @Autowired
-    EmployeeRepository employeeRepository;
+    EmployeeInMemoryRepository employeeInMemoryRepository;
     @Autowired
     WeatherController weatherController;
     @Autowired
@@ -33,7 +31,7 @@ class FirstSampleApplicationTests {
         //When
         employeeController.saveEmployee(employeeName);
         //Then
-        String savedName = employeeRepository.getAllEmployees().get(0).getName();
+        String savedName = employeeInMemoryRepository.getAllEmployees().get(0).getName();
         Assertions.assertEquals(employeeName, savedName);
     }
 

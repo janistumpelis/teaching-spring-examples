@@ -1,26 +1,17 @@
 package io.codelex.firstsample.employee;
 
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-@Repository
-public class EmployeeRepository {
+public interface EmployeeRepository extends JpaRepository<Employee, Integer> {
 
-    //Bad idea because of concurrency
-    private final List<Employee> employeeList;
+    Optional<Employee> findEmployeeById(Integer id);
 
-    public EmployeeRepository() {
-        this.employeeList = new ArrayList<>();
-    }
-
-    public void saveEmployee(Employee employee) {
-        employeeList.add(employee);
-    }
-
-    public List<Employee> getAllEmployees() {
-        return employeeList;
-    }
+    @Query("SELECT e FROM Employee e WHERE e.name like ('%' || :name || '%')")
+    List<Employee> searchByName(@Param("name") String namePhrase);
 
 }

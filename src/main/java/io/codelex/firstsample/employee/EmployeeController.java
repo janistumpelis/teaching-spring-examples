@@ -55,6 +55,12 @@ public class EmployeeController {
         return employeeService.findEmployeeById(empId);
     }
 
+    //http://localhost:8080/employee/search?name=John
+    @GetMapping("/search")
+    public List<Employee> searchEmployeesByName(@RequestParam("name") String name) {
+        return employeeService.searchEmployeesByName(name);
+    }
+
     @GetMapping("/testerror")
     public void makeError() {
         try {
